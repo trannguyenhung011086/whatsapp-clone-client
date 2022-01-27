@@ -1,25 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
+import ChatRoomScreen from './components/ChatRoomScreen';
+import ChatsListScreen from './components/ChatsListScreen';
+import { createBrowserHistory } from 'history';
 
 function App() {
+  const history = createBrowserHistory();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/chats" element={<ChatsListScreen history={history} />} />
+        <Route path="/chats/:chatId" element={<ChatRoomScreen />} />
+        <Route path="/" element={<Navigate to="/chats" />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
